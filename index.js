@@ -26,7 +26,8 @@ const cadastrarMeta = async () => {
 const listarMeta = async () => {
     const repostas = await checkbox({
         message: "Use as setas para mudar de meta, o espaço para marcar ou desmarcar e o Enter para finalizar essa etapa",
-        choices: [...metasList] //faz uma cópia de metasList para que a original não seja modificada;
+        choices: [...metasList], //faz uma cópia de metasList para que a original não seja modificada;
+        instructions: false,
     })
 
     if(respostas.length == 0) {
@@ -34,11 +35,19 @@ const listarMeta = async () => {
         return
     }
 
+    aulas.forEach((m) => {
+        m.checked = false
+    })
+
     respostas.forEach((resposta) => {
-        const meta = metasList.find(m) => {
+        const meta = metasList.find((m) => {
             return m.value == resposta
         })
+        
+        meta.checked == true;
     }) 
+
+    console.log("Metas concluídas: ")
 }
 
 const start = async () => {
