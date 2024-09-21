@@ -1,5 +1,5 @@
 const {select, input, checkbox} = require('@inquirer/prompts')
-const mensagem = "Bem-vinde ao APP de Metas com Node e Javascript"
+let mensagem = "Bem-vinde ao APP de Metas com Node e Javascript"
 
 // Lista de metas:
 let meta = {
@@ -52,7 +52,7 @@ const listarMetas = async () => {
             return m.value == resposta
         })
 
-        meta.checked == true;
+        meta.checked = true;
     }) 
 
     mensagem = "Meta(s) marcada(s) como concluída(s): "
