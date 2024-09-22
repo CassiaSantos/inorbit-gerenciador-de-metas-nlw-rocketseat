@@ -1,12 +1,19 @@
 const {select, input, checkbox} = require('@inquirer/prompts')
 
-// Lista de metas:
-let meta = {
-    value: "Fazer musculação 2 horas por dia",
-    checked: false
+let metasList
+
+const carregarMetas = async () => {
+    try {
+        const dados = await FileSystem.readFile("metas.json", "utf-8")
+        metasList= JSON.parse(dados) //Transforma em JSON
+    } catch (erro) {
+        metasList = []
+    }
 }
 
-let metasList = [meta]
+const salvarMetas = async () => {
+    await FileSystem.writeFile("metas.json", JSON.stringify(metasList, null, 2)) // metasList será tranformada em JSON
+}
 
 // CADASTRO DE METAS - Aguarda usuário digitar meta no console:
 const cadastrarMeta = async () => {
@@ -26,6 +33,7 @@ const cadastrarMeta = async () => {
 
 // LISTAGEM DE METAS: 
 const listarMeta = async () => {
+    //no caso de não haver metas cadastradas
     if (metasList.length == 0) {
         mensagem = "Não existem metas!"
         return
@@ -58,7 +66,8 @@ const listarMeta = async () => {
 }
 
 const metasRealizadas = async () => {
-    if (metas.length == 0) {
+    //no caso de não haver metas cadastradas
+    if (metasList.length == 0) {
         mensagem = "Não existem metas!"
         return
     }
@@ -78,6 +87,12 @@ const metasRealizadas = async () => {
 } 
 
 const metasAbertas = async () => {
+    //no caso de não haver metas cadastradas
+    if (metasList.length == 0) {
+        mensagem = "Não existem metas!"
+        return
+    }
+
     const abertas = metasList.filter((meta) => {
         return meta.checked != true
     })
@@ -94,6 +109,12 @@ const metasAbertas = async () => {
 }
 
 const deletarMetas = async () => {
+    //no caso de não haver metas cadastradas
+    if (metasList.length == 0) {
+        mensagem = "Não existem metas!"
+        return
+    }
+    
     const metasDesmarcadas = metasList.map((meta) => {
         return {value: meta.value, checkbox: false} //desmarca todas as metas
     })
@@ -120,8 +141,10 @@ const deletarMetas = async () => {
 }
 
 const start = async () => {
-
+    await carregarMetas()
+    
     while(true){
+        await salvarMetas()
 
         // Menu de opções + poder de escolha do usuário:
         const opcao = await select({
