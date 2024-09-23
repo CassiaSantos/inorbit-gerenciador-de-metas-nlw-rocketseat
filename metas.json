@@ -5,10 +5,14 @@
   },
   {
     "value": "Caminhar por 30 minutos",
-    "checked": false
+    "checked": true
   },
   {
     "value": "Tomar 3L de água por dia",
+    "checked": false
+  },
+  {
+    "value": "Estudar 30 minutos de inglês por dia",
     "checked": false
   }
 ]
