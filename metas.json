@@ -1,0 +1,14 @@
+[
+  {
+    "value": "Estudar Programação",
+    "checked": true
+  },
+  {
+    "value": "Caminhar por 30 minutos",
+    "checked": false
+  },
+  {
+    "value": "Tomar 3L de água por dia",
+    "checked": false
+  }
+]
